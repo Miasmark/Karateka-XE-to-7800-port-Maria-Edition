@@ -3003,9 +3003,9 @@ def build(out_path):
     # CPU's (the cart as ever, signed alone) and MARIA's, which it reads
     # during its DMA: its window block (the top data and fighters' parts) in
     # all seven window banks, as the CPU may have any of them in, and its
-    # fixed bank (the fighters' parts). One 16K of RAM at $4000 both sides
-    # share (type $2006, as the user's core and the MAME build do) while cart
-    # RAM still holds lists and code
+    # fixed bank (the fighters' parts). v1: one 16K of RAM at $4000 both
+    # sides share (type $2006, as the openFPGA core and the MAME build do),
+    # MARIA's data written there at each scene's load; V2: no RAM ($2002)
     if L.V2:            # (each scene page's window its own; banks 6 and 7 the fixed ones, $4000 and $C000)
         maria = (b"".join(bytes(ts_win.get(b, bytes(BANK))) for b in range(6)) + bytes(mspace.data[:BANK])
                  + bytes(mspace.data[BANK:]))
@@ -3032,7 +3032,7 @@ def build(out_path):
             f.write("; %s ($%04X): %d bytes used\n" % (img.name, img.base, used(img)))
             for at, n, what in sorted(img.log):
                 f.write("$%04X-$%04X %5d  %s\n" % (at, at + n - 1, n, what))
-    print("wrote %s (%d bytes)" % (out_path, len(hdr) + len(rom)))
+    print("wrote %s (%d bytes)" % (out_path, len(hdr) + len(rom) + len(maria)))
     return sym
 
 
