@@ -1,0 +1,24 @@
+# scene 4's worlds (probes/worldlist.py): each world's draws in order, at world x
+# (screen x - V; the rooms', 4r and 4p: screen x)
+# B world src bank kind mode row x | F world kind top bottom v02 v12 x0 x1 |
+# R world x0 x1: what the screen shows
+R 4p 0 160
+R 4r 0 160
+F 4p pat 124 133 AA 00 12 120
+B 4p 964A 6 MR 01 60 20
+B 4p B700 6 A 01 134 32
+B 4p B7C8 6 A 01 97 120
+B 4p B9BE 6 A 01 118 40
+B 4p BABF 6 A 01 118 16
+B 4p 96CE 6 MR 01 60 12
+F 4r pat 118 132 00 AA 40 76
+F 4r pat 118 129 AA 00 16 60
+F 4r pat 118 145 AA 00 16 144
+B 4r 971D 6 A 01 138 144
+B 4r 971D 6 MR 01 138 0
+B 4r 964A 6 A 01 60 132
+B 4r 964A 6 MR 01 60 20
+B 4r 9743 6 A 01 118 128
+B 4r 9743 6 MR 01 118 28
+B 4r 96CE 6 MR 01 60 12
+B 4r 96CE 6 A 01 60 144

@@ -1,0 +1,1 @@
+-- (debug) a companion that does nothing (for runs that need only stateplay.lua's own logs)

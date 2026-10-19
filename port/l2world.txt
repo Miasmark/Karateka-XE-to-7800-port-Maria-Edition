@@ -1,0 +1,54 @@
+# scene 2's worlds (probes/worldlist.py): each world's draws in order, at world x
+# (screen x - V; the rooms', 2c and 2p: screen x)
+# B world src bank kind mode row x | F world kind top bottom v02 v12 x0 x1 |
+# R world x0 x1: what the screen shows
+R 2 -1024 48
+R 2c 0 160
+R 2p 0 160
+F 2 rect 22 118 00 55 -1024 -992
+F 2 rect 58 67 AA 00 -1024 -988
+F 2 rect 73 118 00 00 -1024 -996
+F 2 rect 22 118 00 55 -1018 -986
+F 2 rect 58 67 AA 00 -1018 -982
+F 2 rect 22 118 00 55 -1021 -989
+F 2 rect 58 67 AA 00 -1021 -985
+F 2 rect 22 118 00 55 -1020 -988
+F 2 rect 58 67 AA 00 -1020 -984
+F 2 rect 22 118 00 55 -1013 -981
+F 2 rect 58 67 AA 00 -1013 -977
+B 2 A602 2 A 01 22 -1024
+B 2 A546 2 A 01 45 -992
+F 2 rect 18 118 00 00 -34 6
+F 2 rect 58 67 AA 00 -34 6
+F 2 rect 18 118 00 55 -18 22
+F 2 rect 58 67 AA 00 -18 22
+F 2 rect 81 119 00 55 -10 22
+F 2 pat 118 146 55 00 -10 22
+F 2 rect 18 118 00 55 8 48
+F 2 pat 118 146 55 00 8 48
+F 2 rect 58 67 AA 00 8 48
+B 2 A274 2 A 01 18 8
+F 2 rect 81 119 00 55 16 48
+F 2 pat 118 146 55 00 16 48
+B 2 A103 2 A 01 79 12
+B 2 A12D 2 A 01 119 12
+B 2 A1EC 2 A 01 79 40
+F 2c pat 118 145 AA 00 16 144
+B 2c 971D 6 A 01 138 144
+B 2c 971D 6 MR 01 138 0
+B 2c 964A 6 A 01 60 132
+B 2c 964A 6 MR 01 60 20
+B 2c 9743 6 A 01 118 128
+B 2c 9743 6 MR 01 118 28
+B 2c 96CE 6 MR 01 60 12
+B 2c 96CE 6 A 01 60 144
+F 2c rect 134 137 00 00 100 152
+F 2p pat 124 133 AA 00 12 120
+B 2p 964A 6 MR 01 60 20
+B 2p B700 6 A 01 134 32
+B 2p B7C8 6 A 01 97 120
+B 2p B9BE 6 A 01 118 40
+B 2p BABF 6 A 01 118 16
+B 2p 96CE 6 MR 01 60 12
+B 2p BAD0 6 A 01 134 8
+F 2p rect 60 138 00 00 0 12

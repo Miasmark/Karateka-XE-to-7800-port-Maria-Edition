@@ -1,0 +1,50 @@
+# scene 3's worlds (probes/worldlist.py): each world's draws in order, at world x
+# (screen x - V; the rooms', 3r and 3p: screen x)
+# B world src bank kind mode row x | F world kind top bottom v02 v12 x0 x1 |
+# R world x0 x1: what the screen shows
+R 3p 0 160
+R 3r 0 160
+R 3s -1024 -736
+F 3p pat 124 133 AA 00 12 120
+B 3p 964A 6 MR 01 60 20
+B 3p B700 6 A 01 134 32
+B 3p B7C8 6 A 01 97 120
+B 3p B9BE 6 A 01 118 40
+B 3p BABF 6 A 01 118 16
+B 3p 96CE 6 MR 01 60 12
+B 3p BAD0 6 A 01 134 8
+F 3p rect 60 138 00 00 0 12
+F 3r pat 118 132 00 AA 40 76
+F 3r pat 118 132 00 AA 32 68
+F 3r pat 118 145 AA 00 16 144
+B 3r 971D 6 A 01 138 144
+B 3r 971D 6 MR 01 138 0
+B 3r 964A 6 A 01 60 132
+B 3r 964A 6 MR 01 60 20
+B 3r 9743 6 A 01 118 128
+B 3r 9743 6 MR 01 118 28
+B 3r 96CE 6 MR 01 60 12
+B 3r 96CE 6 A 01 60 144
+B 3s A000 3 A 01 51 -1024
+F 3s rect 117 143 00 00 -750 -746
+F 3s pat 117 143 AA 00 -777 -745
+F 3s rect 117 143 00 00 -749 -745
+F 3s pat 117 143 AA 00 -773 -741
+F 3s rect 117 143 00 00 -749 -741
+F 3s pat 117 143 AA 00 -771 -739
+F 3s rect 117 143 00 00 -751 -739
+F 3s pat 117 143 AA 00 -774 -742
+F 3s rect 117 143 00 00 -750 -742
+F 3s pat 117 143 AA 00 -776 -744
+F 3s rect 117 143 00 00 -748 -744
+F 3s pat 117 143 AA 00 -772 -740
+F 3s rect 117 143 00 00 -748 -740
+F 3s pat 117 143 AA 00 -770 -738
+F 3s rect 117 143 00 00 -750 -738
+F 3s pat 117 143 AA 00 -768 -736
+F 3s rect 117 143 00 00 -748 -736
+B 3s 964A 6 A 01 60 -764
+B 3s 971D 6 A 01 138 -752
+B 3s 9743 6 A 01 118 -768
+B 3s 96CE 6 A 01 60 -752
+F 3s rect 60 138 00 00 -748 -736
