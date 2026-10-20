@@ -14938,3 +14938,46 @@ instruction from bankset cart RAM ($7210)".
   without her DMA flag (the read path `mame_mariaspace.py` added) while
   the halted CPU's SYNC was up. The cartridge is fine; the check is wrong.
   Not fixed in the MAME build.
+
+### Carried to the toolkit, and what its new probe says about V2 (2026-10-20)
+a7800-toolkit PR #10 (`karateka-maria-lessons`):
+- v1's `$2006` form as one RAM both chips share (`cart.py` `sharedram`; the
+  simulator lets MARIA read it). Before, the toolkit's simulator drew v1's
+  level 1 from ROM bank 6, as garbage; now `firstlook.py --engine sim`
+  rebuilds it right.
+- `romscan.py`: no run of 16 cartridge bytes in this repository or the
+  stable one. `--trace` of a clone's `--v2` build: it reads nothing outside
+  the clone but the cartridge.
+- `dlimargin.lua`, the general form of `tmp-dlimargin.lua`.
+- The session tool's keys off Left Alt.
+- Pitfalls: the forced replay's mid-frame write-back, MAME's snapshot
+  numbering, a DLI handler running into the next.
+
+**`dlimargin.lua` on V2, real play at level 3** (the `start-level3` cart,
+`playkey.lua` playing, frames 4000-5500):
+- The vertical blank's handler (arriving at line 257) ran into the next
+  frame in 4 frames (4792-4799), ending as late as line 469 (212 of the next
+  frame), past the next frame's first DLI (line 48). It's the NMI building
+  a list, the known open item.
+- The handler arriving at line 154 overran the next NMI (line 175) in 8
+  frames, every 8th, from frame 4302 to 4358.
+- The status bar's colour DLI (line 210) had a margin of 12.6 lines or more
+  here.
+- Not followed up.
+
+**The user's MAME fork** (`Miasmark/mame-Atari8bit7800`, branch
+`atari-0.289`) has all 11 BankSet forms, the fork's MARIA timing, MARIA's
+own address space, `-debugger script` and `-playback_offset`. It doesn't
+have the `$2006` form: `a78_special_type` masks the header with `$E02E` and
+has no case for `$2006`. So v1 won't run there; V2 (`$2002`) maps to
+`a78_bankset_sg`. No release is published yet.
+
+**The Bankset Test Suite v1 in `a78.exe`** (the 0.287 build from
+`port/mame/`): the 2x128K and 2x128K RAM carts pass. The 2x128K RAM POKEY800
+stops on a BRK (POKEY@800 BankSet was never added). The flat 2x32K forms
+run the CPU from the wrong half, and the 48K and 52K forms aren't
+recognised. The build has only the SuperGame forms the port uses.
+
+**A slip in `build7800.py`:** it writes `karateka7800.topdata.json` beside
+the `-o` cartridge under that fixed name, not the `-o` name. Two builds into
+one folder overwrite each other's. Not fixed.
