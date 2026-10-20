@@ -14768,7 +14768,9 @@ handler can't come on time.**
   `P6E_N`. It does this at its end, after its own writes, so their timing
   stays as it was.
   - (Placed after `STA FT_PALR` at first, the capture pushed `$32`-`$3D` a
-    line later, and row 184, the floor's last line, changed colour.)
+    line later, by `tmp-palwhen.lua`'s times. ~~Row 184, the floor's last
+    line, changed colour.~~ **Correction** (below): nothing on screen
+    changed.)
 - `NmiVbi` latches `P6E_N` into `P6E_A` and clears it, so only last
   frame's set counts. The game's handler not running (DLIs off, the blank
   list) leaves none.
@@ -14776,10 +14778,34 @@ handler can't come on time.**
   (`S_INDLI`) or the vertical blank's is (`S_INVBI`), it waits four line
   ends and writes `P6E` to `$25`-`$27`, on the line the game's handler uses
   when on time. Otherwise it leaves them to the game.
-  - Written at once, or after one or two `WSYNC`s, the colours reached the
-    floor's last line (row 184).
-  - Written every frame (four `WSYNC`s), the game's handler ran four lines
-    later, and with it palettes 3, 4, 6 and 7.
+  - ~~Written at once, or after one or two `WSYNC`s, the colours reached
+    the floor's last line (row 184).~~
+  - ~~Written every frame (four `WSYNC`s), the game's handler ran four
+    lines later, and with it palettes 3, 4, 6 and 7.~~
+  - **Correction (2026-10-20):** those two came from stale pictures. Each
+    test run snapshotted into the same folder, and MAME numbers new
+    snapshots from the next free file. So `0000`-`0100` stayed the first
+    run's, and every comparison read them (seen only after the last run:
+    606 files). Recounted, each run's own 101 pictures against the build
+    with the write off:
+
+    | the early write | row 184 differs | other differences only |
+    |---|---|---|
+    | at once | 50 | 6 |
+    | after 1 `WSYNC` | 50 | 6 |
+    | after 2 `WSYNC`s | 0 | 17 |
+    | after 4, every frame | 0 | 16 |
+    | late only, capture after `STA FT_PALR` | 0 | 5 |
+    | late only, capture at the end (kept) | 0 | 6 |
+
+    - Two line ends already keep row 184 right: the zone's last line is on
+      screen during the line after the NMI's.
+    - Writing every frame shifts the game's handler, and the fights drift
+      more (16-17 pictures). Writing only when the handler is late leaves
+      normal frames as they were (5-6, all drift).
+    - So the kept form is right, for these reasons. The four `WSYNC`s put
+      the write on the game's own line (218.85); two would be enough for row
+      184.
 - Room: `AKP_TO_FIXED` 160 → 100 (the level-1 pieces didn't fit).
 
 **Checked:**
