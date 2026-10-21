@@ -14971,6 +14971,29 @@ own address space, `-debugger script` and `-playback_offset`. It doesn't
 have the `$2006` form: `a78_special_type` masks the header with `$E02E` and
 has no case for `$2006`. So v1 won't run there; V2 (`$2002`) maps to
 `a78_bankset_sg`. No release is published yet.
+- **Correction, the same day:** the user added the form (`430ed00`, boards
+  `a78_bankset_sg_ram` and `a78_bankset_sg_ram_p800`), and merged the branches.
+  - The fork's rule against lists in the cartridge covers only the ROM above
+    the shared RAM. The RAM is read like console RAM, and the CPU may run code
+    there.
+  - Built here from `atari-0.289` at `5738bfa`:
+    - a worktree of `mame-src` at `Documents\mame-fork` (no spaces in the
+      path);
+    - `make PTR64=1 MINGW64=/ucrt64 SUBTARGET=a78
+      SOURCES=src/mame/atari/a7800.cpp NOWERROR=1
+      ARCHOPTS=-Wno-sfinae-incomplete REGENIE=1 IGNORE_GIT=1 -j17`, from
+      PowerShell with `MSYSTEM=UCRT64`. From Git Bash the makefile picks up
+      Git's `uname` and stops: "Unable to detect OS".
+    - Out: `Documents\mame-fork\a78.exe`.
+  - On it:
+    - the Bankset Test Suite's ten carts all show what its README asks for
+      (`BANKSET 1`, `BANK 0`/`1`, `BANK 6`, `BANKRAM 1`, every title), the
+      same as the toolkit's simulator;
+    - v1 and V2 show the story (frames 900, 2,500) and, started at level 3
+      with `playkey.lua`, play it to flip 800;
+    - no rule warnings.
+  - The toolkit (PR #10's second commit) now reads lists from the shared RAM
+    as the fork does.
 
 **The Bankset Test Suite v1 in `a78.exe`** (the 0.287 build from
 `port/mame/`): the 2x128K and 2x128K RAM carts pass. The 2x128K RAM POKEY800

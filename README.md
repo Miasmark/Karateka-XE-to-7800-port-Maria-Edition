@@ -27,7 +27,7 @@ the XE cartridge (`Karateka.car`) to build anything.
 | Fighters | as the XE draws them | MARIA objects | MARIA objects, coloured: the guards' belts go by strength and their trim by type; the player has a black belt and blue trim |
 | Other changes | | | Akuma's red robe; the hawk in 160B colour on level 3; Mt Fuji redrawn; the torii's front posts drawn over the fighters |
 | Joystick | one button: a short press punches, a long one kicks (the `two-buttons` option gives button 1 punch, button 2 kick) | one button, as the XE | two buttons built in (button 1 punches, button 2 kicks); a one-button stick still works |
-| Runs on | stock MAME, 7800 hardware with a SuperGame RAM board | BankSet with shared RAM: the patched MAME below, the openFPGA 7800 core for the Analogue Pocket | BankSet (the spec's plain form): the patched MAME below, the openFPGA 7800 core |
+| Runs on | stock MAME, 7800 hardware with a SuperGame RAM board | BankSet with shared RAM: the Atari MAME fork below, the openFPGA 7800 core for the Analogue Pocket | BankSet (the spec's plain form): the Atari MAME fork below, the openFPGA 7800 core |
 | Whole game, frames (forced replay, below) | 20,282 | 17,590 (13.3% fewer) | 18,173 (10.4% fewer) |
 
 The stable port is the reference: it is the most faithful, and it runs
@@ -92,10 +92,18 @@ submodule.
 
 ## Running the cartridges
 
-Both versions need BankSet support. Stock MAME 0.287 refuses BankSet
+Both versions need BankSet support. Stock MAME refuses BankSet
 cartridges.
 
-- **MAME:** `port/mame/` has scripts that patch a MAME 0.287 source tree.
+- **MAME:** the [Atari MAME fork](https://github.com/Miasmark/mame-Atari8bit7800)
+  runs both versions. Use its branch `atari-0.289`: MAME 0.289 with an Atari
+  patch set, which has v1's `$2006` form (since `430ed00`) and all of
+  BankSet's others. Build its 7800 driver as its `README-atari.md` says.
+  - Checked on a build of `5738bfa`: v1 and V2 show the story and play
+    level 3, with no warnings about the BankSet rules.
+  - All ten carts of the Bankset Test Suite v1 show what the suite asks for.
+- **MAME 0.287, patched here:** `port/mame/` has the scripts this port was
+  developed with. They patch a MAME 0.287 source tree.
   Run them in order, each with the tree's path:
   1. `mame_bankset.py` adds the BankSet cartridge types, including v1's
      `$2006` with shared RAM;
@@ -113,9 +121,10 @@ cartridges.
   versions.
 
 v1's `$2006` form (one RAM both halves see) is not in the BankSet spec. It
-is how the openFPGA core maps BankSet with RAM, so other BankSet hardware
-and emulators may not run v1. V2's `$2002` is the spec's plain BankSet
-SuperGame form.
+is how the openFPGA core maps BankSet with RAM, and the Atari MAME fork
+follows it. Other BankSet hardware and emulators may not run v1: the a7800
+emulator puts a ROM bank at `$4000` instead. V2's `$2002` is the spec's
+plain BankSet SuperGame form.
 
 ## Cartridge options
 
